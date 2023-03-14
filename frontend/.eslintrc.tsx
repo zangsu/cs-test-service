@@ -19,5 +19,7 @@ module.exports = {
       jsx: true,
     },
   },
-  rules: {},
+  rules: {
+    'linebreak-style': ['error', 'windows'],
+  },
 };
