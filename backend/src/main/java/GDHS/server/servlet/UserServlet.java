@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet(name = "userServlet", urlPatterns = "/user")
 public class UserServlet extends HttpServlet {
-	SessionRepository sessionRepository = SessionRepository.getInstance();
+	SessionRepository sessionRepository = SessionRepository.getSessionInstance();
 
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

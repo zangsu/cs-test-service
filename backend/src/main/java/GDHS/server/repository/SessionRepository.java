@@ -13,7 +13,7 @@ public class SessionRepository {
 	private SessionRepository() {
 	}
 
-	public static SessionRepository getInstance() {
+	public static SessionRepository getSessionInstance() {
 		return instance;
 	}
 
