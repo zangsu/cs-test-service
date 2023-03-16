@@ -12,19 +12,19 @@ public class ProblemRepository {
 	private ProblemRepository() {
 		String problem1 = "1번문제";
 		String[] example1 = {"1번 보기", "2번 보기", "3번 보기", "4번 보기", "5번 보기"};
-		String correction1 = "1번문제 정답";
+		int correction1 = 1;
 		String problem2 = "2번문제";
 		String[] example2 = {"1번 보기", "2번 보기", "3번 보기", "4번 보기", "5번 보기"};
-		String correction2 = "2번문제 정답";
+		int correction2 = 2;
 		String problem3 = "3번문제";
 		String[] example3 = {"1번 보기", "2번 보기", "3번 보기", "4번 보기", "5번 보기"};
-		String correction3 = "3번문제 정답";
+		int correction3 = 3;
 		String problem4 = "4번문제";
 		String[] example4 = {"1번 보기", "2번 보기", "3번 보기", "4번 보기", "5번 보기"};
-		String correction4 = "4번문제 정답";
+		int correction4 = 4;
 		String problem5 = "5번문제";
 		String[] example5 = {"1번 보기", "2번 보기", "3번 보기", "4번 보기", "5번 보기"};
-		String correction5 = "5번문제 정답";
+		int correction5 = 5;
 
 		problemMap.put(1, new Problem(problem1, example1, correction1));
 		problemMap.put(2, new Problem(problem2, example2, correction2));

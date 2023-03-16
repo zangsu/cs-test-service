@@ -3,11 +3,12 @@ package GDHS.server.dataclass;
 public class Problem {
 	String problem;
 	String[] exmaple = new String[5];
-	String correction;
+	int correction;
 
-	public Problem(String problem, String[] exmaple, String correction) {
+	public Problem(String problem, String[] exmaple, int correction) {
 		this.problem = problem;
 		this.exmaple = exmaple;
+		this.correction = correction;
 	}
 
 	public String getProblem() {
@@ -18,7 +19,7 @@ public class Problem {
 		return exmaple;
 	}
 
-	public String getCorrection() {
+	public int getCorrection() {
 		return correction;
 	}
 }
