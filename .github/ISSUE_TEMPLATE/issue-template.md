@@ -1,7 +1,7 @@
 ---
 name: Issue template
 about: template for registering features
-title: "#1 - Feature name"
+title: "Feature name"
 labels: ''
 assignees: ''
 
