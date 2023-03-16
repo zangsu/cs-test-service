@@ -1,8 +1,8 @@
 import React from 'react';
-import Main from './main/main';
+import Home from './main/Home';
 import './App.scss';
 
 function App() {
-  return <Main></Main>;
+  return <Home></Home>;
 }
 export default App;
