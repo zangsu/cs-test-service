@@ -16,10 +16,15 @@ public class FrontController extends HttpServlet {
 		String requestURI = request.getRequestURI();
 		switch (requestURI){
 			case "/user":
+				UserController userController = new UserController();
+
 				break;
 			case "/problem":
 				ProblemController problemController = new ProblemController();
 				problemController.service(request, response);
+				break;
+			case "/result":
+				ResultController resultController = new ResultController();
 				break;
 		}
 	}
