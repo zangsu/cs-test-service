@@ -20,6 +20,11 @@ module.exports = {
     },
   },
   rules: {
-    'linebreak-style': ['error', 'windows'],
+    'linebreak-style': ['warn', 'windows'],
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
   },
 };
