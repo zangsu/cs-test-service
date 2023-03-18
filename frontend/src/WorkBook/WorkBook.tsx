@@ -6,7 +6,7 @@ function WorkBook() {
   useEffect(showProblem, []);
 
   const problemNumber = 1;
-  const problemNumberMapper = ['', '①', '②', '③', '④', '⑤'];
+  const problemNumberMapper: string[] = ['', '①', '②', '③', '④', '⑤'];
   let problemTitle = '';
   let problemList: string[] = [];
 
