@@ -240,6 +240,10 @@ $character-animation-maximum: 5;
       font-weight: 700;
       border: none;
       cursor: pointer;
+
+      &.bodycontainer__startbtn {
+        transition: 1s;
+      }
       
       &:hover {
         font-size: 1.05rem;

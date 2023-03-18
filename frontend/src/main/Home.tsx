@@ -10,9 +10,9 @@ function Home() {
   useEffect(makeInputValues, []);
 
   function nameValidationTest(): boolean {
-    const userNameInput = _$('#userNameInput') as HTMLInputElement;
+    const $userNameInput = _$('#userNameInput') as HTMLInputElement;
 
-    if (userNameInput.value) {
+    if ($userNameInput.value) {
       return true;
     }
 
@@ -20,9 +20,9 @@ function Home() {
   }
 
   function gradeValidationTest(): boolean {
-    const gradeInput = _$('#schoolIDInput') as HTMLInputElement;
+    const $gradeInput = _$('#schoolIDInput') as HTMLInputElement;
 
-    if (gradeInput.value) {
+    if ($gradeInput.value) {
       return true;
     }
 
@@ -35,20 +35,23 @@ function Home() {
       return;
     }
 
-    const handImg = _$('#bodycontainer__handImg');
-    changeCSS(handImg, 'transform', 'rotateY(0deg) rotate(-20deg)');
+    const $handImg = _$('#bodycontainer__handImg');
+    const $startBtn = _$('.bodycontainer__startbtn');
 
-    setTimeout(
-      () =>
-        changeCSS(
-          handImg,
-          'transform',
-          'rotateY(0deg) rotate(-20deg) scale(110%)'
-        ),
-      900
-    );
+    changeCSS($handImg, 'transform', 'rotateY(0deg) rotate(-20deg)');
 
-    setTimeout(() => changeCSS(handImg, 'opacity', '0'), 1900);
+    setTimeout(() => {
+      changeCSS(
+        $handImg,
+        'transform',
+        'rotateY(0deg) rotate(-20deg) scale(110%)'
+      );
+      changeCSS($startBtn, 'transform', 'scale(110%)');
+      changeCSS($startBtn, 'backgroundColor', '#2F83FF');
+      changeCSS($startBtn, 'color', '#F1F0EB');
+    }, 1000);
+
+    setTimeout(() => changeCSS($handImg, 'opacity', '0'), 2000);
   }
 
   function submitUserInfo() {
@@ -56,47 +59,47 @@ function Home() {
   }
 
   function clearInputValueCSS() {
-    const inputList = _$('.bodycontainer__inputvalues');
-    const inputValues: NodeList = inputList.childNodes;
+    const $inputList = _$('.bodycontainer__inputvalues');
+    const $inputValues: NodeList = $inputList.childNodes;
 
-    for (let index = 0; index < inputValues.length; index++) {
-      const inputValue = inputValues[index] as HTMLElement;
-      inputValue.classList.remove('clicked');
+    for (let index = 0; index < $inputValues.length; index++) {
+      const $inputValue = $inputValues[index] as HTMLElement;
+      $inputValue.classList.remove('clicked');
     }
   }
 
   function toggleInputValues(): void {
     const INPUT_VALUES_SHOW = '50%';
     const INPUT_VALUES_HIDDEN = '3%';
-    const inputValues: HTMLElement = _$('.bodycontainer__inputvalues');
+    const $inputValues: HTMLElement = _$('.bodycontainer__inputvalues');
 
-    inputValues.style.bottom === INPUT_VALUES_HIDDEN
-      ? changeCSS(inputValues, 'bottom', INPUT_VALUES_SHOW)
-      : changeCSS(inputValues, 'bottom', INPUT_VALUES_HIDDEN);
+    $inputValues.style.bottom === INPUT_VALUES_HIDDEN
+      ? changeCSS($inputValues, 'bottom', INPUT_VALUES_SHOW)
+      : changeCSS($inputValues, 'bottom', INPUT_VALUES_HIDDEN);
   }
 
   function fillDegreeInput(inputText: string): void {
     clearInputValueCSS();
-    const degreeInput = _$('#schoolIDInput') as HTMLInputElement;
-    degreeInput.value = inputText;
+    const $degreeInput = _$('#schoolIDInput') as HTMLInputElement;
+    $degreeInput.value = inputText;
   }
 
   function makeInputValues(): void {
     const degrees = [17, 18, 19, 20, 21, 22, 23];
-    const inputList = _$('.bodycontainer__inputvalues');
+    const $inputList = _$('.bodycontainer__inputvalues');
 
-    if (!inputList.children.length) {
+    if (!$inputList.children.length) {
       degrees.forEach((degree) => {
-        const inputValue: HTMLElement = document.createElement('li');
-        inputValue.textContent = `${degree}학번`;
+        const $inputValue: HTMLElement = document.createElement('li');
+        $inputValue.textContent = `${degree}학번`;
 
-        inputValue.addEventListener('click', () => {
+        $inputValue.addEventListener('click', () => {
           fillDegreeInput(`${degree}학번`);
           toggleInputValues();
-          inputValue.classList.add('clicked');
+          $inputValue.classList.add('clicked');
         });
 
-        inputList.appendChild(inputValue);
+        $inputList.appendChild($inputValue);
       });
     }
   }
@@ -140,7 +143,9 @@ function Home() {
               />
             </label>
           </div>
-          <button onClick={submitUserInfo}>Let`s Go</button>
+          <button className="bodycontainer__startbtn" onClick={submitUserInfo}>
+            Let`s Go
+          </button>
         </div>
         <img src={handImg} alt="손 이미지" id="bodycontainer__handImg" />
       </section>
