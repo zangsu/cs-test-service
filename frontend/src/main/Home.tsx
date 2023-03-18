@@ -4,9 +4,11 @@ import React, { useEffect } from 'react';
 import Logo from './Logo';
 import Characters from './Charaters';
 import { changeCSS, _$ } from '../common/utils';
+import { useNavigate } from 'react-router-dom';
 import handImg from '../assets/img/longhand.png';
 
 function Home() {
+  const navigate = useNavigate();
   useEffect(makeInputValues, []);
 
   function nameValidationTest(): boolean {
@@ -52,6 +54,7 @@ function Home() {
     }, 1000);
 
     setTimeout(() => changeCSS($handImg, 'opacity', '0'), 2000);
+    setTimeout(() => navigate('/workBook'), 2500);
   }
 
   function submitUserInfo() {

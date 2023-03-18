@@ -1,0 +1,102 @@
+// color
+$background-color: #F1F0EB;
+$button-color: #2F83FF;
+
+// position
+$border-radius: 5vh;
+
+.container {
+  width: 80vw;
+  height: 100vh;
+  margin: 0 auto;
+  background-color: $background-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & .problembox {
+    width: 60%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 auto;
+    border-radius: $border-radius;
+    background-color: #fff;
+
+    & .problembox__problem {
+      width: 80%;
+      height: 20%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: flex-start;
+
+      & .problembox__problemNumber {
+        font-weight: 700;
+        font-size: 1.2rem;
+      }
+
+      & .problembox__problemDescription { 
+        font-weight: 700;
+        font-size: 1rem;
+      }
+    }
+
+    & .problembox__choicebox {
+      width: 80%;
+      height: 70%;
+
+      & ul {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 100%;
+        height: 100%;
+        
+        & li {
+          transition: 0.3s;
+          width: 100%;
+          height: 15%;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          border-radius: 1vh;
+          cursor: pointer;
+
+          &.clicked {
+            background-color: #ffaa01;
+            color: #fff;
+          }
+
+          & h3 {
+            width: 10%;
+            font-size: 1.3rem;
+            font-weight: 700;
+          }
+
+          & h4 {
+            width: 80%;
+            font-size: 1rem;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+
+  & .problemSubmitBtn {
+    background-color: $button-color;
+    border: none;
+    padding: 1vh 3vw;
+    border-radius: $border-radius;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-top: 3vh;
+    cursor: pointer;
+  }
+}
