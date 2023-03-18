@@ -1,65 +1,50 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { _$ } from '../common/utils';
 import './workBook.scss';
 
 function WorkBook() {
-  useEffect(showProblem, []);
+  useEffect(() => getProblems, []);
+
+  const [problemList, setProblemList] = useState<string[]>([]);
+  const [clickedNode, setClickedNode] = useState<HTMLElement>();
+  const [problemTitle, setProblemTitle] = useState<string>('');
 
   const problemNumber = 1;
   const problemNumberMapper: string[] = ['', '①', '②', '③', '④', '⑤'];
-  let problemTitle = '';
-  let problemList: string[] = [];
 
-  function clearChoiceNodeClass(): void {
-    const $choiceNodes = Array.from(document.querySelectorAll('li'));
-    $choiceNodes.forEach(($choiceNode) => ($choiceNode.className = ''));
-  }
+  function clickChoiceNode(event: React.MouseEvent<HTMLLIElement>) {
+    let $targetNode = event.target as HTMLElement;
 
-  function eventToChoiceNode($targetNode: HTMLElement): void {
-    $targetNode.addEventListener('click', () => {
-      clearChoiceNodeClass();
-      $targetNode.classList.toggle('clicked');
-    });
-  }
+    $targetNode =
+      $targetNode.tagName === 'LI'
+        ? $targetNode
+        : ($targetNode.parentElement as HTMLElement);
 
-  function makeChoiceNode(
-    choiceNumber: string,
-    choiceDescription: string
-  ): HTMLElement {
-    const $choiceNode = document.createElement('li');
-    const $choiceNumber = document.createElement('h3');
-    const $choiceDescription = document.createElement('h4');
+    if ($targetNode === clickedNode) {
+      return;
+    }
 
-    $choiceNumber.innerHTML = choiceNumber;
-    $choiceDescription.innerHTML = choiceDescription;
+    $targetNode.classList.add('clicked');
 
-    $choiceNode.appendChild($choiceNumber);
-    $choiceNode.appendChild($choiceDescription);
+    if (clickedNode) {
+      clickedNode.classList.remove('clicked');
+    }
 
-    eventToChoiceNode($choiceNode);
-
-    return $choiceNode;
+    setClickedNode($targetNode);
   }
 
   // 통신 들어가면 비동기 처리 해주기
   function getProblems(): void {
-    problemList = ['1번 보기', '2번 보기', '3번 보기', '4번 보기', '5번 보기'];
-    problemTitle = '문제 설명';
-  }
+    setProblemList(() => [
+      ...problemList,
+      '1번 보기',
+      '2번 보기',
+      '3번 보기',
+      '4번 보기',
+      '5번 보기',
+    ]);
 
-  function showProblem(): void {
-    getProblems();
-    const $problemBox = _$('ul');
-
-    // Strict Mode로 2번 호출되는 것 방지
-    if ($problemBox.children.length) {
-      return;
-    }
-
-    problemList.forEach((problem, index) => {
-      const numberToString: string = problemNumberMapper[index + 1];
-      $problemBox.appendChild(makeChoiceNode(numberToString, problem));
-    });
+    setProblemTitle('문제 설명');
   }
 
   return (
@@ -72,7 +57,18 @@ function WorkBook() {
           <h2 className="problembox__problemDescription">{problemTitle}</h2>
         </div>
         <div className="problembox__choicebox">
-          <ul></ul>
+          <ul>
+            {problemList.map((problem, index) => (
+              <li
+                className="problembox__choice"
+                key={index}
+                onClick={clickChoiceNode}
+              >
+                <h3>{problemNumberMapper[index + 1]}</h3>
+                <h4>{problem}</h4>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
       <button className="problemSubmitBtn">Submit</button>

@@ -66,6 +66,8 @@ $border-radius: 5vh;
           align-items: center;
           border-radius: 1vh;
           cursor: pointer;
+          outline: 0.2vh solid green;
+          background-color: rgba(255, 255, 255, 0);
 
           &.clicked {
             background-color: #ffaa01;
