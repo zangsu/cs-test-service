@@ -21,7 +21,7 @@ module.exports = {
   },
   rules: {
     'linebreak-style': ['warn', 'windows'],
-    'react/no-unescaped-entities': [],
+    quotes: ['error', 'single', { avoidEscape: true }],
   },
   settings: {
     react: {

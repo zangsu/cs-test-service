@@ -1,37 +1,36 @@
 import './reset.scss';
 import './home.scss';
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import Logo from './Logo';
 import Characters from './Charaters';
 import { changeCSS, _$ } from '../common/utils';
+import handImg from '../assets/img/longhand.png';
 
 function Home() {
-  const handImg = require('../assets/img/longhand.png');
-
   useEffect(makeInputValues, []);
 
-  function nameValidationTest():Boolean {
+  function nameValidationTest(): boolean {
     const userNameInput = _$('#userNameInput') as HTMLInputElement;
 
-    if(userNameInput.value) {
+    if (userNameInput.value) {
       return true;
     }
 
     return false;
   }
 
-  function gradeValidationTest():Boolean {
+  function gradeValidationTest(): boolean {
     const gradeInput = _$('#schoolIDInput') as HTMLInputElement;
 
-    if(gradeInput.value) {
+    if (gradeInput.value) {
       return true;
     }
 
     return false;
   }
 
-  function handImgClickBtn():void {
-    if(!gradeValidationTest() || !nameValidationTest())  {
+  function handImgClickBtn(): void {
+    if (!gradeValidationTest() || !nameValidationTest()) {
       alert('입력 칸을 모두 채워주세요');
       return;
     }
@@ -49,14 +48,7 @@ function Home() {
       900
     );
 
-    setTimeout(
-      () =>
-        changeCSS(
-          handImg,
-          'opacity', '0'
-        ),
-      1900
-    );
+    setTimeout(() => changeCSS(handImg, 'opacity', '0'), 1900);
   }
 
   function submitUserInfo() {
@@ -65,17 +57,17 @@ function Home() {
 
   function clearInputValueCSS() {
     const inputList = _$('.bodycontainer__inputvalues');
-    const inputValues:NodeList = inputList.childNodes;
+    const inputValues: NodeList = inputList.childNodes;
 
-    for(let index:number = 0;index<inputValues.length;index++) {
+    for (let index = 0; index < inputValues.length; index++) {
       const inputValue = inputValues[index] as HTMLElement;
       inputValue.classList.remove('clicked');
     }
   }
 
-  function toggleInputValues():void {
-    const INPUT_VALUES_SHOW:string = '50%';
-    const INPUT_VALUES_HIDDEN: string = '3%';
+  function toggleInputValues(): void {
+    const INPUT_VALUES_SHOW = '50%';
+    const INPUT_VALUES_HIDDEN = '3%';
     const inputValues: HTMLElement = _$('.bodycontainer__inputvalues');
 
     inputValues.style.bottom === INPUT_VALUES_HIDDEN
@@ -83,17 +75,17 @@ function Home() {
       : changeCSS(inputValues, 'bottom', INPUT_VALUES_HIDDEN);
   }
 
-  function fillDegreeInput(inputText:string):void {
+  function fillDegreeInput(inputText: string): void {
     clearInputValueCSS();
     const degreeInput = _$('#schoolIDInput') as HTMLInputElement;
     degreeInput.value = inputText;
   }
 
-  function makeInputValues():void {
-    const degrees:number[] = [17, 18, 19, 20, 21, 22, 23];
+  function makeInputValues(): void {
+    const degrees = [17, 18, 19, 20, 21, 22, 23];
     const inputList = _$('.bodycontainer__inputvalues');
 
-    if(! inputList.children.length) {
+    if (!inputList.children.length) {
       degrees.forEach((degree) => {
         const inputValue: HTMLElement = document.createElement('li');
         inputValue.textContent = `${degree}학번`;
@@ -106,7 +98,7 @@ function Home() {
 
         inputList.appendChild(inputValue);
       });
-    }    
+    }
   }
 
   return (
@@ -148,7 +140,7 @@ function Home() {
               />
             </label>
           </div>
-          <button onClick={submitUserInfo}>Let's Go</button>
+          <button onClick={submitUserInfo}>Let`s Go</button>
         </div>
         <img src={handImg} alt="손 이미지" id="bodycontainer__handImg" />
       </section>
