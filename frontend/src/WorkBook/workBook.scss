@@ -89,14 +89,14 @@ $border-radius: 5vh;
   }
 
   & .problemSubmitBtn {
-    background-color: $button-color;
-    border: none;
+    margin-top: 3vh;
     padding: 1vh 3vw;
+    background-color: $button-color;
     border-radius: $border-radius;
+    border: none;    
     color: #fff;
     font-weight: 700;
     font-size: 1.2rem;
-    margin-top: 3vh;
     cursor: pointer;
   }
 }
