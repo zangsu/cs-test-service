@@ -1,6 +1,8 @@
 package GDHS.server.dto;
 
 public class CollectionDTO {
+	/*
+
 	boolean isCorrect;
 
 	public CollectionDTO(boolean isCorrect) {
@@ -9,5 +11,15 @@ public class CollectionDTO {
 
 	public boolean isCorrect() {
 		return isCorrect;
+	}
+	*/
+	String Answer;
+
+	public CollectionDTO(String answer) {
+		Answer = answer;
+	}
+
+	public String getAnswer() {
+		return Answer;
 	}
 }

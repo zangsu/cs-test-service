@@ -38,7 +38,7 @@ public class ProblemController {
 			//int userAnswer = Integer.parseInt(request.getParameter("userAnswer"));
 			if (verifyUserAnswer(response, userAnswer))
 				return;
-			resultDTO =new CollectionDTO(checkCollection(userAnswer, problemNumber));
+			resultDTO =new CollectionDTO(getProblemAnswer(problemNumber));
 		}
 
 		makeResponse(response, resultDTO);
@@ -52,6 +52,7 @@ public class ProblemController {
 		return userAnswer;
 	}
 
+
 	private boolean verifyUserAnswer(HttpServletResponse response, int userAnswer) {
 		if(userAnswer > 5 || userAnswer < 1) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -60,9 +61,13 @@ public class ProblemController {
 		return false;
 	}
 
-	private boolean checkCollection(int userAnswer, int problemNumber) {
+	/*private boolean checkCollection(int userAnswer, int problemNumber) {
 		Problem problem = problemRepository.getProblem(problemNumber);
 		return  (userAnswer == problem.getCorrection());
+	}*/
+	private String getProblemAnswer(int problemNumber){
+		Problem problem = problemRepository.getProblem(problemNumber);
+		return Integer.toString(problem.getCorrection());
 	}
 
 	private ProblemDTO getProblemDTO(int problemNumber) {
@@ -86,6 +91,4 @@ public class ProblemController {
 		System.out.println(resultDTO);
 		writer.println(objectMapper.writeValueAsString(resultDTO));
 	}
-
-
 }

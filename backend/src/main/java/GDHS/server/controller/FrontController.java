@@ -7,15 +7,18 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @WebServlet(name = "frontContoller", urlPatterns = "/*")
 public class FrontController extends HttpServlet {
 
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("FrontController.service");
+		log.info("launch FrontController.service");
 		String requestURI = request.getRequestURI();
-		System.out.println("requestURI = " + requestURI);
+		log.debug("Request URL = {}", requestURI);
 		switch (requestURI){
 			case "/user":
 				UserController userController = new UserController();
