@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { changeCSS, _$ } from '../common/utils';
-import { MODAL_TOP } from '../common/variable';
+import { LAST_PROBLEM, MODAL_TOP } from '../common/variable';
 import './modal.scss';
+import { contextValue, contextType } from './WorkBook';
+import { useNavigate } from 'react-router-dom';
 
 function Modal() {
+  const navigate = useNavigate();
+  const workBookContext = useContext<contextValue>(contextType);
+  const getProblems = workBookContext.handleModalClick;
+  const setProblemNumber = workBookContext.setProblemNumber;
+  const problemNumber = workBookContext.problemNumber;
+
   function goNextProblem() {
+    if (problemNumber == LAST_PROBLEM) {
+      navigate('/');
+      return;
+    }
+
     const $modal = _$('.modalBackground');
     changeCSS($modal, 'top', MODAL_TOP.HIDE);
+    getProblems(problemNumber + 1);
+    setProblemNumber((problemNumber) => problemNumber + 1);
   }
 
   return (

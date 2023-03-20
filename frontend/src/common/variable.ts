@@ -13,4 +13,8 @@ const MODAL_TOP = {
   HIDE: '-100vh',
 };
 
-export { FETCH_URL, FETCH_METHOD, MODAL_TOP };
+// service logic
+const USER_NONE_INPUT = '0';
+const LAST_PROBLEM = 5;
+
+export { FETCH_URL, FETCH_METHOD, MODAL_TOP, LAST_PROBLEM, USER_NONE_INPUT };

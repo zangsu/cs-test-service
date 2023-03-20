@@ -1,18 +1,51 @@
-import React, { useEffect, useState } from 'react';
-import { FETCH_URL, FETCH_METHOD, MODAL_TOP } from '../common/variable';
+import React, { useEffect, useState, createContext } from 'react';
+import {
+  FETCH_URL,
+  FETCH_METHOD,
+  MODAL_TOP,
+  LAST_PROBLEM,
+  USER_NONE_INPUT,
+} from '../common/variable';
 import { changeCSS, _$ } from '../common/utils';
 import './workBook.scss';
 import Modal from './Modal';
 
+type contextValue = {
+  handleModalClick: (problemNumber: number) => void;
+  setProblemNumber: (callBack: (problemNumber: number) => number) => void;
+  problemNumber: number;
+};
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+const contextType = createContext<contextValue>({
+  handleModalClick: () => {},
+  setProblemNumber: () => {},
+  problemNumber: 1,
+});
+/* eslint-enable @typescript-eslint/no-empty-function */
+
 function WorkBook() {
-  useEffect(() => getProblems, []);
+  const setProblemData = async () => await getProblems(1);
+  let isFirstCall = true;
+
+  useEffect(() => {
+    if (isFirstCall) {
+      setProblemData();
+      isFirstCall = false;
+    }
+  }, []);
 
   const [problemList, setProblemList] = useState<string[]>([]);
   const [clickedNode, setClickedNode] = useState<HTMLElement>();
   const [problemTitle, setProblemTitle] = useState<string>('');
   const [problemNumber, setProblemNumber] = useState(1);
-
   const problemNumberMapper: string[] = ['', '①', '②', '③', '④', '⑤'];
+
+  const workBookContext: contextValue = {
+    handleModalClick: getProblems,
+    setProblemNumber,
+    problemNumber,
+  };
 
   function clickChoiceNode(event: React.MouseEvent<HTMLLIElement>) {
     let $targetNode = event.target as HTMLElement;
@@ -36,24 +69,15 @@ function WorkBook() {
   }
 
   // 통신 들어가면 비동기 처리 해주기
-  function getProblems(): void {
-    fetch(`${FETCH_URL}/problem?problemNumber=${problemNumber}`, {
+  async function getProblems(number: number): Promise<void> {
+    await fetch(`${FETCH_URL}/problem?problemNumber=${number}`, {
       method: FETCH_METHOD.GET,
     })
       .then((res) => res.json())
       .then(({ example, problem }) => {
-        console.log(example, problem);
+        setProblemList(() => [...example]);
+        setProblemTitle(problem);
       });
-
-    setProblemList(() => [
-      '1번 보기',
-      '2번 보기',
-      '3번 보기',
-      '4번 보기',
-      '5번 보기',
-    ]);
-
-    setProblemTitle('문제 설명');
   }
 
   function showModal(userInput: string, answer: string): void {
@@ -68,12 +92,17 @@ function WorkBook() {
       $modalDescription.innerHTML = `정답은 <span style="color:red;">${answer}번</span> 입니다`;
     }
 
+    if (problemNumber == LAST_PROBLEM) {
+      const $nextBtn = _$('.modalContainer__nextBtn');
+      $nextBtn.innerHTML = '결과 확인';
+    }
+
     const $modal = _$('.modalBackground');
     changeCSS($modal, 'top', MODAL_TOP.SHOW);
   }
 
-  function submitAnswer(): void {
-    let userInput = '0';
+  async function submitAnswer(): Promise<void> {
+    let userInput = USER_NONE_INPUT;
     const $choiceNodes = document.querySelectorAll('li');
 
     for (let i = 0; i < $choiceNodes.length; i++) {
@@ -83,19 +112,33 @@ function WorkBook() {
       }
     }
 
-    if (userInput === '0') {
+    if (userInput === USER_NONE_INPUT) {
       alert('정답을 선택해주세요.');
       return;
     }
 
     // 통신 함수 추후 추가
-    const problemAnswer = '3';
+    let problemAnswer = '3';
+
+    await fetch(`${FETCH_URL}/problem?problemNumber=${problemNumber}`, {
+      method: FETCH_METHOD.POST,
+      body: JSON.stringify({
+        userAnswer: userInput,
+      }),
+    })
+      .then((res) => res.json())
+      .then(({ answer }) => {
+        problemAnswer = answer;
+      });
+
     showModal(userInput, problemAnswer);
   }
 
   return (
     <section className="container">
-      <Modal></Modal>
+      <contextType.Provider value={workBookContext}>
+        <Modal></Modal>
+      </contextType.Provider>
       <section className="problembox">
         <div className="problembox__problem">
           <h1 className="problembox__problemNumber">
@@ -126,3 +169,4 @@ function WorkBook() {
 }
 
 export default WorkBook;
+export { contextValue, contextType };
