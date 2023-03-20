@@ -6,8 +6,11 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
+import lombok.extern.slf4j.Slf4j;
+
 @ServletComponentScan
 @SpringBootApplication
+@Slf4j
 public class ServerApplication extends SpringBootServletInitializer {
 
 	@Override
