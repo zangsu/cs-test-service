@@ -2,6 +2,7 @@ package GDHS.server.controller;
 
 import java.io.IOException;
 
+import GDHS.server.dataclass.User;
 import GDHS.server.repository.SessionRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,7 +26,9 @@ public class UserController {
 			session.setAttribute("sessionID", sessionId);
 			log.info("sessionID = {}", sessionId);
 		}else{
-			log.info("get sessionID = {}", session.getAttribute("sessionID"));
+			Long sessionID = (Long)session.getAttribute("sessionID");
+			User user = sessionRepository.getUser(sessionID);
+			log.info("session User = {}, {}", user.getUsername(), user.getUserID());
 		}
 
 		response.setStatus(HttpServletResponse.SC_OK);

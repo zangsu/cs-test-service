@@ -12,6 +12,7 @@ import GDHS.server.dataclass.Problem;
 import GDHS.server.dto.CollectionDTO;
 import GDHS.server.dto.ProblemDTO;
 import GDHS.server.dto.UserAnswerDTO;
+import GDHS.server.repository.AnswerRepository;
 import GDHS.server.repository.ProblemRepository;
 import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class ProblemController {
 
 	ProblemRepository problemRepository = ProblemRepository.getProblemInstance();
+	AnswerRepository answerRepository = AnswerRepository.getAnswerInstance();
 	private ObjectMapper objectMapper = new ObjectMapper();
 
 	public void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -35,10 +37,12 @@ public class ProblemController {
 			resultDTO = getProblemDTO(problemNumber);
 		} else if (request.getMethod().equals("POST")){ //POST
 			int userAnswer = getUserAnswer(request);
-			//int userAnswer = Integer.parseInt(request.getParameter("userAnswer"));
+			Long sessionID = (Long)request.getSession().getAttribute("sessionID");
 			if (verifyUserAnswer(response, userAnswer))
 				return;
-			resultDTO =new CollectionDTO(getProblemAnswer(problemNumber));
+			String problemAnswer = getProblemAnswer(problemNumber);
+			answerRepository.putAnswer(sessionID, checkCollection(userAnswer, problemNumber), problemNumber);
+			resultDTO = new CollectionDTO(problemAnswer);
 		}
 
 		makeResponse(response, resultDTO);
@@ -61,10 +65,10 @@ public class ProblemController {
 		return false;
 	}
 
-	/*private boolean checkCollection(int userAnswer, int problemNumber) {
+	private boolean checkCollection(int userAnswer, int problemNumber) {
 		Problem problem = problemRepository.getProblem(problemNumber);
 		return  (userAnswer == problem.getCorrection());
-	}*/
+	}
 	private String getProblemAnswer(int problemNumber){
 		Problem problem = problemRepository.getProblem(problemNumber);
 		return Integer.toString(problem.getCorrection());

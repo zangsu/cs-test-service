@@ -24,4 +24,8 @@ public class SessionRepository {
 		return lastSessionId;
 	}
 
+	public User getUser(Long UserId){
+		return sessionMap.get(UserId);
+	}
+
 }
