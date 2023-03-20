@@ -37,9 +37,13 @@ function WorkBook() {
 
   // 통신 들어가면 비동기 처리 해주기
   function getProblems(): void {
-    // fetch(`${FETCH_URL}/problem?problemNumber${problemNumber}`, {
-    //   method: FETCH_METHOD.GET,
-    // });
+    fetch(`${FETCH_URL}/problem?problemNumber=${problemNumber}`, {
+      method: FETCH_METHOD.GET,
+    })
+      .then((res) => res.json())
+      .then(({ example, problem }) => {
+        console.log(example, problem);
+      });
 
     setProblemList(() => [
       '1번 보기',
