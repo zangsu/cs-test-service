@@ -3,6 +3,7 @@ import Home from './Main/Home';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.scss';
 import WorkBook from './WorkBook/WorkBook';
+import Result from './Result/Result';
 
 function App() {
   const router = createBrowserRouter([
@@ -13,6 +14,10 @@ function App() {
     {
       path: '/workBook',
       element: <WorkBook></WorkBook>,
+    },
+    {
+      path: '/result',
+      element: <Result></Result>,
     },
   ]);
 

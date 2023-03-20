@@ -7,4 +7,9 @@ const changeCSS = (target: HTMLElement | null, key: any, newValue: string) => {
   }
 };
 
-export { _$, changeCSS };
+const parseSchoolID = (IDString: string) => {
+  const IDNumber = parseInt(IDString);
+  return `20${IDNumber}`;
+};
+
+export { _$, changeCSS, parseSchoolID };

@@ -3,9 +3,10 @@ import './home.scss';
 import React, { useEffect } from 'react';
 import Logo from './Logo';
 import Characters from './Charaters';
-import { changeCSS, _$ } from '../common/utils';
+import { changeCSS, parseSchoolID, _$ } from '../common/utils';
 import { useNavigate } from 'react-router-dom';
 import handImg from '../assets/img/longhand.png';
+import { FETCH_METHOD, FETCH_URL } from '../common/variable';
 
 function Home() {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ function Home() {
     return false;
   }
 
-  function handImgClickBtn(): void {
+  async function handImgClickBtn(): Promise<void> {
     if (!gradeValidationTest() || !nameValidationTest()) {
       alert('입력 칸을 모두 채워주세요');
       return;
@@ -57,7 +58,20 @@ function Home() {
     setTimeout(() => navigate('/workBook'), 2500);
   }
 
-  function submitUserInfo() {
+  async function submitUserInfo(): Promise<void> {
+    const $userNameInput = _$('#userNameInput') as HTMLInputElement;
+    const $userIDInput = _$('#schoolIDInput') as HTMLInputElement;
+
+    const userName = $userNameInput.value;
+    const userID = parseSchoolID($userIDInput.value);
+
+    await fetch(`${FETCH_URL}/user?userName=${userName}&userID=${userID}`, {
+      method: FETCH_METHOD.POST,
+    });
+  }
+
+  async function clickStartBtn() {
+    await submitUserInfo();
     handImgClickBtn();
   }
 
@@ -146,7 +160,7 @@ function Home() {
               />
             </label>
           </div>
-          <button className="bodycontainer__startbtn" onClick={submitUserInfo}>
+          <button className="bodycontainer__startbtn" onClick={clickStartBtn}>
             Let`s Go
           </button>
         </div>

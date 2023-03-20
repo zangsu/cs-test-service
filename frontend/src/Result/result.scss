@@ -1,0 +1,50 @@
+// color
+$background-color: #F1F0EB;
+
+.resultContainer {
+  width: 80vw;
+  height: 100vh;
+  margin: 0 auto;
+  background-color: $background-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & .resultContainer__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    height: 5vh;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2%;
+  }
+
+  & .resultBox {
+    width: 60%;
+    height: 50vh;
+    background-color: #fff;
+    border-radius: 5vh;
+
+    & ul {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+
+      & li {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 15%;
+        width: 30%;
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+    }
+  }
+}
