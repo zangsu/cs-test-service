@@ -72,6 +72,7 @@ function WorkBook() {
   async function getProblems(number: number): Promise<void> {
     await fetch(`${FETCH_URL}/problem?problemNumber=${number}`, {
       method: FETCH_METHOD.GET,
+      credentials: 'include',
     })
       .then((res) => res.json())
       .then(({ example, problem }) => {
@@ -124,6 +125,7 @@ function WorkBook() {
       method: FETCH_METHOD.POST,
       body: JSON.stringify({
         userAnswer: userInput,
+        credentials: 'include',
       }),
     })
       .then((res) => res.json())
