@@ -1,0 +1,47 @@
+$border-radius: 2vh;
+$modal-hide: -100vh;
+
+.modalBackground {
+  transition: 1s;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: $modal-hide;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalContainer {
+  transition: 1s;
+  position: absolute;
+  left: 40vw;
+  top: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 20vw;
+  height: 15vh;
+  background-color: #fff;
+  outline: 0.2vh solid black;
+  border-radius: $border-radius;
+
+  & .modalContainer__title,
+  & .modalContainer__description {
+    font-weight: 700;
+  }
+
+  & .modalContainer__nextBtn {
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    padding: 1vh 0;
+    width: 40%;
+    height: 20%;
+    border-radius: 1vh;
+    color: #fff;
+    background-color: #2F83FF;
+    cursor: pointer;
+  }
+}
