@@ -9,21 +9,24 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class AnswerRepository {
-	//private static AnswerRepository answerInstance = new AnswerRepository();
+	private static AnswerRepository answerInstance = new AnswerRepository();
 	//private static Map<String, Answer> answerMap = new HashMap<>();
 	//private SessionRepository sessionRepository = SessionRepository.getSessionInstance();
 	private ProblemRepository problemInstance = ProblemRepository.getProblemInstance();
 
-	private static Answer answer = new Answer();
+	private static Answer answer;
 
 	private AnswerRepository() {	}
 
+	public static AnswerRepository getAnswerInstance(){
+		return answerInstance;
+	}
 	public static Answer getAnswer(){
 		return answer;
 	}
 
 	public void makeUser(String userName){
-		answer.setUserName(userName);
+		answer = new Answer(userName);
 	}
 
 	public void putAnswer(boolean correction, int problemNumber) {

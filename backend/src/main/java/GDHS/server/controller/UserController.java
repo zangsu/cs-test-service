@@ -6,7 +6,9 @@ import java.util.Iterator;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import GDHS.server.dataclass.Answer;
 import GDHS.server.dataclass.User;
+import GDHS.server.repository.AnswerRepository;
 import GDHS.server.repository.SessionRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -18,12 +20,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
-	SessionRepository sessionRepository = SessionRepository.getSessionInstance();
+
+	AnswerRepository answerRepository = AnswerRepository.getAnswerInstance();
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws
 		ServletException, IOException {
 
+		String userName = request.getParameter("userName");
 		log.info("UserServlet.service");
+
+		answerRepository.makeUser(userName);
 
 		/*
 		HttpSession session = request.getSession();

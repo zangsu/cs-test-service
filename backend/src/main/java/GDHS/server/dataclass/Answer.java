@@ -4,9 +4,6 @@ public class Answer {
 	String userName;
 	boolean[] answer;
 
-	public Answer() {
-	}
-
 	public Answer(String userName) {
 		this.userName = userName;
 		this.answer = new boolean[5];
@@ -16,9 +13,6 @@ public class Answer {
 		return userName;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
 
 	public boolean[] getAnswer() {
 		return answer;
