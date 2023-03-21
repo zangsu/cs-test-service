@@ -71,8 +71,10 @@ function WorkBook() {
   // 통신 들어가면 비동기 처리 해주기
   async function getProblems(number: number): Promise<void> {
     await fetch(`${FETCH_URL}/problem?problemNumber=${number}`, {
+      headers: {
+        'Content-type': 'application/json',
+      },
       method: FETCH_METHOD.GET,
-      credentials: 'include',
     })
       .then((res) => res.json())
       .then(({ example, problem }) => {
@@ -123,9 +125,11 @@ function WorkBook() {
 
     await fetch(`${FETCH_URL}/problem?problemNumber=${problemNumber}`, {
       method: FETCH_METHOD.POST,
+      headers: {
+        'Content-type': 'application/json',
+      },
       body: JSON.stringify({
         userAnswer: userInput,
-        credentials: 'include',
       }),
     })
       .then((res) => res.json())
