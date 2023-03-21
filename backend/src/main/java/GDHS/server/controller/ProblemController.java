@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import org.springframework.util.StreamUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import GDHS.server.constant.HttpConst;
 import GDHS.server.dataclass.Problem;
 import GDHS.server.dto.CollectionDTO;
 import GDHS.server.dto.ProblemDTO;
@@ -32,9 +34,9 @@ public class ProblemController {
 		if (verifyPageNumber(problemNumber, response))
 			return;
 
-		if(request.getMethod().equals("GET")){
+		if(request.getMethod().equals(HttpConst.HTTP_METHOD_GET)){
 			resultDTO = getProblemDTO(problemNumber);
-		} else if (request.getMethod().equals("POST")){ //POST
+		} else if (request.getMethod().equals(HttpConst.HTTP_METHOD_POST)){
 			int userAnswer = getUserAnswer(request);
 
 			if (verifyUserAnswer(response, userAnswer))
