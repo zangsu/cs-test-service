@@ -16,7 +16,7 @@ public class ResultController {
 	AnswerRepository answerRepository = AnswerRepository.getAnswerInstance();
 
 	public void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		ResultDTO result = answerRepository.getResult((Long)request.getSession().getAttribute("sessionID"));
+		ResultDTO result = answerRepository.getResult();
 		makeResponse(response, result);
 	}
 

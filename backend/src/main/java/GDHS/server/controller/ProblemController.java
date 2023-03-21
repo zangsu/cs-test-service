@@ -3,11 +3,8 @@ package GDHS.server.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-
 import org.springframework.util.StreamUtils;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import GDHS.server.dataclass.Problem;
 import GDHS.server.dto.CollectionDTO;
 import GDHS.server.dto.ProblemDTO;
@@ -15,7 +12,6 @@ import GDHS.server.dto.UserAnswerDTO;
 import GDHS.server.repository.AnswerRepository;
 import GDHS.server.repository.ProblemRepository;
 import jakarta.servlet.ServletInputStream;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
