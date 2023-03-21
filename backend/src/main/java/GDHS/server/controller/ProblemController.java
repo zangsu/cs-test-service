@@ -40,27 +40,12 @@ public class ProblemController {
 			resultDTO = getProblemDTO(problemNumber);
 		} else if (request.getMethod().equals("POST")){ //POST
 			int userAnswer = getUserAnswer(request);
-			Long sessionID = (Long)request.getSession().getAttribute("sessionID");
 
-			/*Long sessionID = null;
-			Cookie[] cookies = request.getCookies();
-			for (Cookie cookie : cookies) {
-				log.info("cookie = {}", cookie.getName());
-				String StringSessionID = cookie.getAttribute("sessionID");
-				if(StringSessionID != null) {
-					sessionID = Long.parseLong(StringSessionID);
-					log.info("sessionID = {}", sessionID);
-					break;
-				}
-			}*/
-			if(sessionID == null) {
-				log.info("sessionID is null");
-				return;
-			}
+
 			if (verifyUserAnswer(response, userAnswer))
 				return;
 			String problemAnswer = getProblemAnswer(problemNumber);
-			answerRepository.putAnswer(sessionID, checkCollection(userAnswer, problemNumber), problemNumber);
+			answerRepository.putAnswer(checkCollection(userAnswer, problemNumber), problemNumber);
 			resultDTO = new CollectionDTO(problemAnswer);
 		}
 
