@@ -84,6 +84,8 @@ function WorkBook() {
   }
 
   function showModal(userInput: string, answer: string): void {
+    console.log(answer);
+
     const $modalTitle = _$('.modalContainer__title');
     const $modalDescription = _$('.modalContainer__description');
 
@@ -121,7 +123,7 @@ function WorkBook() {
     }
 
     // 통신 함수 추후 추가
-    let problemAnswer = '3';
+    let problemAnswer = '';
 
     await fetch(`${FETCH_URL}/problem?problemNumber=${problemNumber}`, {
       method: FETCH_METHOD.POST,
