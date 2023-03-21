@@ -14,11 +14,11 @@ function Modal() {
 
   function goNextProblem() {
     if (problemNumber == LAST_PROBLEM) {
-      navigate('/');
+      navigate('/result');
       return;
     }
-
     const $modal = _$('.modalBackground');
+
     changeCSS($modal, 'top', MODAL_TOP.HIDE);
     getProblems(problemNumber + 1);
     setProblemNumber((problemNumber) => problemNumber + 1);
@@ -29,8 +29,7 @@ function Modal() {
       <section className="modalContainer">
         <div className="modalContainer__title">정답!</div>
         <h1 className="modalContainer__description">
-          정답은 <span className="modalContainer__correctAnswer">3번</span>{' '}
-          입니다
+          <span className="modalContainer__correctAnswer"></span>
         </h1>
         <button className="modalContainer__nextBtn" onClick={goNextProblem}>
           다음 문제

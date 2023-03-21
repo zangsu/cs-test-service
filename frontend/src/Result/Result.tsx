@@ -1,19 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { FETCH_METHOD, FETCH_URL, LAST_PROBLEM } from '../common/variable';
 import './result.scss';
 
 function Result() {
-  const problemNumbers: string[] = ['1번', '2번', '3번', '4번', '5번'];
-  const userAnswerCorrects: boolean[] = [true, true, true, false, true];
+  const [answerTable, setAnswerTable] = useState<string[]>([]);
+  const [resultTitle, setResultTitle] = useState('결과를 가져오고 있습니다.');
+  const problemNumbers: string[] = Array.from(
+    { length: LAST_PROBLEM },
+    (_, index) => `${index + 1}번`
+  );
+
+  useEffect(() => {
+    async function getResultFromServer(): Promise<void> {
+      await fetch(`${FETCH_URL}/result`, {
+        method: FETCH_METHOD.GET,
+        headers: {
+          'Content-type': 'application/json',
+        },
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then(({ resultTitle, results }) => {
+          setResultTitle(resultTitle);
+          setAnswerTable([...results]);
+        });
+    }
+
+    getResultFromServer();
+  }, []);
 
   return (
     <section className="resultContainer">
-      <h1 className="resultContainer__title">결과 제목</h1>
+      <h1 className="resultContainer__title">{resultTitle}</h1>
       <section className="resultBox">
         <ul>
-          {problemNumbers.map((problemNumber, index) => (
+          {answerTable.map((answer, index) => (
             <li key={`result${index}`}>
-              <h2>{problemNumber}</h2>
-              <h3>{userAnswerCorrects[index] ? 'O' : 'X'}</h3>
+              <h2>{problemNumbers[index]}</h2>
+              <h3>{answer ? 'O' : 'X'}</h3>
             </li>
           ))}
         </ul>
