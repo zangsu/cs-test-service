@@ -2,6 +2,7 @@ package GDHS.server.controller;
 
 import java.io.IOException;
 
+import GDHS.server.constant.HttpConst;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @WebServlet(name = "frontContoller", urlPatterns = "/*")
 public class FrontController extends HttpServlet {
 
+
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		log.info("launch FrontController.service");
@@ -20,15 +22,15 @@ public class FrontController extends HttpServlet {
 		log.debug("Request URL = {}", requestURI);
 
 		switch (requestURI){
-			case "/user":
+			case HttpConst.PATH_USER:
 				UserController userController = new UserController();
 				userController.service(request, response);
 				break;
-			case "/problem":
+			case HttpConst.PATH_PROBLEM:
 				ProblemController problemController = new ProblemController();
 				problemController.service(request, response);
 				break;
-			case "/result":
+			case HttpConst.PATH_RESULT:
 				ResultController resultController = new ResultController();
 				resultController.service(request, response);
 				break;
