@@ -84,8 +84,6 @@ function WorkBook() {
   }
 
   function showModal(userInput: string, answer: string): void {
-    console.log(answer);
-
     const $modalTitle = _$('.modalContainer__title');
     const $modalDescription = _$('.modalContainer__description');
 
