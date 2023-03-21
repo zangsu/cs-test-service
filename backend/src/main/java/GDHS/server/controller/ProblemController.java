@@ -15,9 +15,12 @@ import GDHS.server.dto.UserAnswerDTO;
 import GDHS.server.repository.AnswerRepository;
 import GDHS.server.repository.ProblemRepository;
 import jakarta.servlet.ServletInputStream;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class ProblemController {
 
 	ProblemRepository problemRepository = ProblemRepository.getProblemInstance();
@@ -38,6 +41,22 @@ public class ProblemController {
 		} else if (request.getMethod().equals("POST")){ //POST
 			int userAnswer = getUserAnswer(request);
 			Long sessionID = (Long)request.getSession().getAttribute("sessionID");
+
+			/*Long sessionID = null;
+			Cookie[] cookies = request.getCookies();
+			for (Cookie cookie : cookies) {
+				log.info("cookie = {}", cookie.getName());
+				String StringSessionID = cookie.getAttribute("sessionID");
+				if(StringSessionID != null) {
+					sessionID = Long.parseLong(StringSessionID);
+					log.info("sessionID = {}", sessionID);
+					break;
+				}
+			}*/
+			if(sessionID == null) {
+				log.info("sessionID is null");
+				return;
+			}
 			if (verifyUserAnswer(response, userAnswer))
 				return;
 			String problemAnswer = getProblemAnswer(problemNumber);
