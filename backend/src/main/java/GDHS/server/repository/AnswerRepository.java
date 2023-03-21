@@ -10,8 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AnswerRepository {
 	private static AnswerRepository answerInstance = new AnswerRepository();
-	//private static Map<String, Answer> answerMap = new HashMap<>();
-	//private SessionRepository sessionRepository = SessionRepository.getSessionInstance();
 	private ProblemRepository problemInstance = ProblemRepository.getProblemInstance();
 
 	private static Answer answer;

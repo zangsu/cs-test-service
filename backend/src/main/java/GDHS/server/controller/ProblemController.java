@@ -37,7 +37,6 @@ public class ProblemController {
 		} else if (request.getMethod().equals("POST")){ //POST
 			int userAnswer = getUserAnswer(request);
 
-
 			if (verifyUserAnswer(response, userAnswer))
 				return;
 			String problemAnswer = getProblemAnswer(problemNumber);
