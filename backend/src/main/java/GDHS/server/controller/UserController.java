@@ -1,6 +1,8 @@
 package GDHS.server.controller;
 
 import java.io.IOException;
+
+import GDHS.server.constant.HttpConst;
 import GDHS.server.repository.AnswerRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,9 +17,9 @@ public class UserController {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws
 		ServletException, IOException {
 
-		String userName = request.getParameter("userName");
 		log.info("UserServlet.service");
 
+		String userName = request.getParameter(HttpConst.REQ_PARAM_USER_NAME);
 		answerRepository.makeUser(userName);
 
 		response.setStatus(HttpServletResponse.SC_OK);

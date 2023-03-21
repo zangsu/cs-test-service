@@ -27,7 +27,7 @@ public class ProblemController {
 
 	public void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-		int problemNumber = Integer.parseInt(request.getParameter("problemNumber"));
+		int problemNumber = Integer.parseInt(request.getParameter(HttpConst.REQ_PARAM_PROBLEM_NUMBER));
 		//실무에서는 이런 부분들 전부 예외처리를 해 주어야 할 것 같다.
 		Object resultDTO = null;
 		//파라미터 확인
@@ -90,8 +90,8 @@ public class ProblemController {
 
 
 	private void makeResponse(HttpServletResponse response, Object resultDTO) throws IOException {
-		response.setContentType("applicatino/json");
-		response.setCharacterEncoding("utf-8");
+		response.setContentType(HttpConst.RES_PARAM_CONTENT_JSON);
+		response.setCharacterEncoding(HttpConst.RES_PARAM_ENCODING_UTF8);
 		PrintWriter writer = response.getWriter();
 		System.out.println(resultDTO);
 		writer.println(objectMapper.writeValueAsString(resultDTO));

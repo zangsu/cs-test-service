@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import GDHS.server.constant.HttpConst;
 import GDHS.server.dto.ResultDTO;
 import GDHS.server.repository.AnswerRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,8 +22,8 @@ public class ResultController {
 	}
 
 	private void makeResponse(HttpServletResponse response, Object resultDTO) throws IOException {
-		response.setContentType("application/json");
-		response.setCharacterEncoding("utf-8");
+		response.setContentType(HttpConst.RES_PARAM_CONTENT_JSON);
+		response.setCharacterEncoding(HttpConst.RES_PARAM_ENCODING_UTF8);
 		PrintWriter writer = response.getWriter();
 		System.out.println(resultDTO);
 		writer.println(objectMapper.writeValueAsString(resultDTO));

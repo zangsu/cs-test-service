@@ -12,5 +12,12 @@ public class HttpConst {
 	public final static String HTTP_METHOD_POST = "POST";
 
 
-	public static String REQ_ATT_  = "ㅇㄹ";
+	//HTTP_PARAM
+	//REQUEST
+	public static String REQ_PARAM_PROBLEM_NUMBER = "problemNumber";
+	public static String REQ_PARAM_USER_NAME = "userName";
+	//RESPONSE
+
+	public static String RES_PARAM_CONTENT_JSON = "application/json";
+	public static String RES_PARAM_ENCODING_UTF8 = "utf-8";
 }
