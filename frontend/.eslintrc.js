@@ -20,7 +20,7 @@ module.exports = {
     },
   },
   rules: {
-    'linebreak-style': ['warn', 'windows'],
+    // 'linebreak-style': ['warn', 'windows'],
     quotes: ['error', 'single', { avoidEscape: true }],
   },
   settings: {
