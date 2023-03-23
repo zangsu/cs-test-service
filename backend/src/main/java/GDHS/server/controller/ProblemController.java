@@ -3,6 +3,8 @@ package GDHS.server.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+
+import org.springframework.stereotype.Controller;
 import org.springframework.util.StreamUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -17,14 +19,17 @@ import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
+@Controller
 public class ProblemController {
 
 	ProblemRepository problemRepository = ProblemRepository.getProblemInstance();
 	AnswerRepository answerRepository = AnswerRepository.getAnswerInstance();
 	private ObjectMapper objectMapper = new ObjectMapper();
 
+	@RequestMapping(HttpConst.PATH_PROBLEM)
 	public void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		int problemNumber = Integer.parseInt(request.getParameter(HttpConst.REQ_PARAM_PROBLEM_NUMBER));
@@ -48,6 +53,7 @@ public class ProblemController {
 
 		makeResponse(response, resultDTO);
 	}
+
 
 	private int getUserAnswer(HttpServletRequest request) throws IOException {
 		ServletInputStream inputStream = request.getInputStream();
@@ -74,6 +80,7 @@ public class ProblemController {
 		Problem problem = problemRepository.getProblem(problemNumber);
 		return Integer.toString(problem.getCorrection());
 	}
+
 
 	private ProblemDTO getProblemDTO(int problemNumber) {
 		Problem problem = problemRepository.getProblem(problemNumber);

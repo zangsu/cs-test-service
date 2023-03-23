@@ -10,12 +10,16 @@ import GDHS.server.dto.ResultDTO;
 import GDHS.server.repository.AnswerRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
+@Controller
 public class ResultController {
 
 	private ObjectMapper objectMapper = new ObjectMapper();
 	AnswerRepository answerRepository = AnswerRepository.getAnswerInstance();
 
+	@GetMapping(HttpConst.PATH_RESULT)
 	public void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		ResultDTO result = answerRepository.getResult();
 		makeResponse(response, result);

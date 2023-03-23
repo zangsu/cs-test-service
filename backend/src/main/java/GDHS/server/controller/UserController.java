@@ -8,12 +8,16 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Slf4j
+@Controller
 public class UserController {
 
 	AnswerRepository answerRepository = AnswerRepository.getAnswerInstance();
 
+	@PostMapping(HttpConst.PATH_USER)
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws
 		ServletException, IOException {
 
