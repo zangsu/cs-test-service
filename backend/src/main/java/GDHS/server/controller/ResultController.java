@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import GDHS.server.constant.HttpConst;
 import GDHS.server.dto.ResultDTO;
 import GDHS.server.repository.AnswerRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

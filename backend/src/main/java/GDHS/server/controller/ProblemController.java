@@ -2,11 +2,9 @@ package GDHS.server.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StreamUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import GDHS.server.constant.HttpConst;
@@ -16,11 +14,8 @@ import GDHS.server.dto.ProblemDTO;
 import GDHS.server.dto.UserAnswerDTO;
 import GDHS.server.repository.AnswerRepository;
 import GDHS.server.repository.ProblemRepository;
-import jakarta.servlet.ServletInputStream;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -36,19 +31,15 @@ public class ProblemController {
 	@RequestMapping(HttpConst.PATH_PROBLEM)
 	public void service(HttpMethod method, @RequestParam int problemNumber, @RequestParam UserAnswerDTO userAnswerDTO, HttpServletResponse response) throws IOException {
 
-		//int problemNumber = Integer.parseInt(request.getParameter(HttpConst.REQ_PARAM_PROBLEM_NUMBER));
-		//실무에서는 이런 부분들 전부 예외처리를 해 주어야 할 것 같다.
 		Object resultDTO = null;
 		//파라미터 확인
 		if (verifyPageNumber(problemNumber, response))
 			return;
 
-		//if(request.getMethod().equals(HttpConst.HTTP_METHOD_GET)){
 		if(method.matches(HttpConst.HTTP_METHOD_GET)){
 			resultDTO = getProblemDTO(problemNumber);
-		}// else if (request.getMethod().equals(HttpConst.HTTP_METHOD_POST)){
+		}
 		else if(method.matches(HttpConst.HTTP_METHOD_POST)){
-			//int userAnswer = getUserAnswer(request);
 			int userAnswer = userAnswerDTO.getUserAnswer();
 
 			if (verifyUserAnswer(response, userAnswer))
@@ -60,16 +51,6 @@ public class ProblemController {
 
 		makeResponse(response, resultDTO);
 	}
-
-
-	private int getUserAnswer(HttpServletRequest request) throws IOException {
-		ServletInputStream inputStream = request.getInputStream();
-		String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
-		UserAnswerDTO userAnswerDTO = objectMapper.readValue(messageBody, UserAnswerDTO.class);
-		int userAnswer = userAnswerDTO.getUserAnswer();
-		return userAnswer;
-	}
-
 
 	private boolean verifyUserAnswer(HttpServletResponse response, int userAnswer) {
 		if(userAnswer > 5 || userAnswer < 1) {
