@@ -13,7 +13,8 @@ import GDHS.server.dto.UserAnswerDTO;
 import GDHS.server.repository.AnswerRepository;
 import GDHS.server.repository.ProblemRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
@@ -23,30 +24,32 @@ public class ProblemController {
 	ProblemRepository problemRepository = ProblemRepository.getProblemInstance();
 	AnswerRepository answerRepository = AnswerRepository.getAnswerInstance();
 
-
-	@RequestMapping(HttpConst.PATH_PROBLEM)
-	public ResponseEntity<Object> service(HttpMethod method, @RequestParam int problemNumber, @RequestParam UserAnswerDTO userAnswerDTO){
-
-		Object resultDTO = null;
-		//파라미터 확인
+	@GetMapping(HttpConst.PATH_PROBLEM)
+	public ResponseEntity<ProblemDTO> getProblem(@RequestParam int problemNumber){
 		if (verifyPageNumber(problemNumber))
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-		if(method.matches(HttpConst.HTTP_METHOD_GET)){
-			resultDTO = getProblemDTO(problemNumber);
-		}
-		else if(method.matches(HttpConst.HTTP_METHOD_POST)){
-			int userAnswer = userAnswerDTO.getUserAnswer();
+		ProblemDTO problemDTO = getProblemDTO(problemNumber);
 
-			if (verifyUserAnswer(userAnswer))
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			String problemAnswer = getProblemAnswer(problemNumber);
-			answerRepository.putAnswer(checkCollection(userAnswer, problemNumber), problemNumber);
-			resultDTO = new CollectionDTO(problemAnswer);
-		}
-
-		return new ResponseEntity<>(resultDTO, HttpStatus.OK);
+		return new ResponseEntity(problemDTO, HttpStatus.OK);
 	}
+
+	@PostMapping(HttpConst.PATH_PROBLEM)
+	public ResponseEntity<CollectionDTO> getUserAnswer(@RequestParam int problemNumber, @RequestParam UserAnswerDTO userAnswerDTO){
+		if (verifyPageNumber(problemNumber))
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+		int userAnswer = userAnswerDTO.getUserAnswer();
+
+		if (verifyUserAnswer(userAnswer))
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		String problemAnswer = getProblemAnswer(problemNumber);
+		answerRepository.putAnswer(checkCollection(userAnswer, problemNumber), problemNumber);
+		CollectionDTO collectionDTO = new CollectionDTO(problemAnswer);
+
+		return new ResponseEntity(collectionDTO, HttpStatus.OK);
+	}
+
 
 	private boolean verifyUserAnswer(int userAnswer) {
 		if(userAnswer > 5 || userAnswer < 1) {
