@@ -2,7 +2,6 @@ package GDHS.server.controller;
 
 import GDHS.server.constant.HttpConst;
 import GDHS.server.repository.AnswerRepository;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
