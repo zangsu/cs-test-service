@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StreamUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,7 +20,9 @@ import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @Controller
@@ -29,20 +32,24 @@ public class ProblemController {
 	AnswerRepository answerRepository = AnswerRepository.getAnswerInstance();
 	private ObjectMapper objectMapper = new ObjectMapper();
 
-	@RequestMapping(HttpConst.PATH_PROBLEM)
-	public void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-		int problemNumber = Integer.parseInt(request.getParameter(HttpConst.REQ_PARAM_PROBLEM_NUMBER));
+	@RequestMapping(HttpConst.PATH_PROBLEM)
+	public void service(HttpMethod method, @RequestParam int problemNumber, @RequestParam UserAnswerDTO userAnswerDTO, HttpServletResponse response) throws IOException {
+
+		//int problemNumber = Integer.parseInt(request.getParameter(HttpConst.REQ_PARAM_PROBLEM_NUMBER));
 		//실무에서는 이런 부분들 전부 예외처리를 해 주어야 할 것 같다.
 		Object resultDTO = null;
 		//파라미터 확인
 		if (verifyPageNumber(problemNumber, response))
 			return;
 
-		if(request.getMethod().equals(HttpConst.HTTP_METHOD_GET)){
+		//if(request.getMethod().equals(HttpConst.HTTP_METHOD_GET)){
+		if(method.matches(HttpConst.HTTP_METHOD_GET)){
 			resultDTO = getProblemDTO(problemNumber);
-		} else if (request.getMethod().equals(HttpConst.HTTP_METHOD_POST)){
-			int userAnswer = getUserAnswer(request);
+		}// else if (request.getMethod().equals(HttpConst.HTTP_METHOD_POST)){
+		else if(method.matches(HttpConst.HTTP_METHOD_POST)){
+			//int userAnswer = getUserAnswer(request);
+			int userAnswer = userAnswerDTO.getUserAnswer();
 
 			if (verifyUserAnswer(response, userAnswer))
 				return;

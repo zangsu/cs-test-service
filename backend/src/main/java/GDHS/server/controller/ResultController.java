@@ -20,7 +20,7 @@ public class ResultController {
 	AnswerRepository answerRepository = AnswerRepository.getAnswerInstance();
 
 	@GetMapping(HttpConst.PATH_RESULT)
-	public void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void service(HttpServletResponse response) throws IOException {
 		ResultDTO result = answerRepository.getResult();
 		makeResponse(response, result);
 	}
