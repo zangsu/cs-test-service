@@ -19,9 +19,11 @@ public class ResultController {
 	AnswerRepository answerRepository = AnswerRepository.getAnswerInstance();
 
 	@GetMapping(HttpConst.PATH_RESULT)
-	public void service(HttpServletResponse response) throws IOException {
+	public ResultDTO service(HttpServletResponse response) throws IOException {
 		ResultDTO result = answerRepository.getResult();
-		makeResponse(response, result);
+		//makeResponse(response, result);
+
+		return result;
 	}
 
 	private void makeResponse(HttpServletResponse response, Object resultDTO) throws IOException {

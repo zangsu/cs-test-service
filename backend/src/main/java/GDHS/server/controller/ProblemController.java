@@ -3,7 +3,11 @@ package GDHS.server.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import GDHS.server.dto.ResultDTO;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -29,12 +33,12 @@ public class ProblemController {
 
 
 	@RequestMapping(HttpConst.PATH_PROBLEM)
-	public void service(HttpMethod method, @RequestParam int problemNumber, @RequestParam UserAnswerDTO userAnswerDTO, HttpServletResponse response) throws IOException {
+	public ResponseEntity<Object> service(HttpMethod method, @RequestParam int problemNumber, @RequestParam UserAnswerDTO userAnswerDTO){
 
 		Object resultDTO = null;
 		//파라미터 확인
-		if (verifyPageNumber(problemNumber, response))
-			return;
+		if (verifyPageNumber(problemNumber))
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
 		if(method.matches(HttpConst.HTTP_METHOD_GET)){
 			resultDTO = getProblemDTO(problemNumber);
@@ -42,19 +46,20 @@ public class ProblemController {
 		else if(method.matches(HttpConst.HTTP_METHOD_POST)){
 			int userAnswer = userAnswerDTO.getUserAnswer();
 
-			if (verifyUserAnswer(response, userAnswer))
-				return;
+			if (verifyUserAnswer(userAnswer))
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			String problemAnswer = getProblemAnswer(problemNumber);
 			answerRepository.putAnswer(checkCollection(userAnswer, problemNumber), problemNumber);
 			resultDTO = new CollectionDTO(problemAnswer);
 		}
 
-		makeResponse(response, resultDTO);
+		return new ResponseEntity<>(resultDTO, HttpStatus.OK);
+		//makeResponse(response, resultDTO);
 	}
 
-	private boolean verifyUserAnswer(HttpServletResponse response, int userAnswer) {
+	private boolean verifyUserAnswer(int userAnswer) {
 		if(userAnswer > 5 || userAnswer < 1) {
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			//response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			return true;
 		}
 		return false;
@@ -75,9 +80,9 @@ public class ProblemController {
 		return new ProblemDTO(problem);
 	}
 
-	private boolean verifyPageNumber(int problemNumber, HttpServletResponse response) {
+	private boolean verifyPageNumber(int problemNumber) {
 		if(problemNumber > 5 || problemNumber < 1){
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			//response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			return true;
 		}
 		return false;
