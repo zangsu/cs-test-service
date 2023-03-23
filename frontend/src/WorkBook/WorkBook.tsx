@@ -121,7 +121,7 @@ function WorkBook() {
     }
 
     // 통신 함수 추후 추가
-    let problemAnswer = '3';
+    let problemAnswer = '';
 
     await fetch(`${FETCH_URL}/problem?problemNumber=${problemNumber}`, {
       method: FETCH_METHOD.POST,
