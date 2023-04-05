@@ -1,12 +1,13 @@
 import React, { useEffect, useState, createContext } from 'react';
 import {
   FETCH_URL,
+  RELEASE_URL,
   FETCH_METHOD,
   MODAL_TOP,
   LAST_PROBLEM,
   USER_NONE_INPUT,
 } from '../common/variable';
-import { changeCSS, _$ } from '../common/utils';
+import { changeCSS, isDevMode, _$ } from '../common/utils';
 import './workBook.scss';
 import Modal from './Modal';
 
@@ -70,7 +71,11 @@ function WorkBook() {
 
   // 통신 들어가면 비동기 처리 해주기
   async function getProblems(number: number): Promise<void> {
-    await fetch(`${FETCH_URL}/problem?problemNumber=${number}`, {
+    const URL = isDevMode()
+      ? `${FETCH_URL}/problem?problemNumber=${number}`
+      : `${RELEASE_URL}/problem?problemNumber=${number}`;
+
+    await fetch(URL, {
       headers: {
         'Content-type': 'application/json',
       },
@@ -123,7 +128,11 @@ function WorkBook() {
     // 통신 함수 추후 추가
     let problemAnswer = '';
 
-    await fetch(`${FETCH_URL}/problem?problemNumber=${problemNumber}`, {
+    const URL = isDevMode()
+      ? `${FETCH_URL}/problem?problemNumber=${problemNumber}`
+      : `${RELEASE_URL}/problem?problemNumber=${problemNumber}`;
+
+    await fetch(URL, {
       method: FETCH_METHOD.POST,
       headers: {
         'Content-type': 'application/json',

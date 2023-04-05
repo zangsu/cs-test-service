@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { FETCH_METHOD, FETCH_URL, LAST_PROBLEM } from '../common/variable';
+import { isDevMode } from '../common/utils';
+import {
+  FETCH_METHOD,
+  FETCH_URL,
+  RELEASE_URL,
+  LAST_PROBLEM,
+} from '../common/variable';
 import './result.scss';
 
 function Result() {
@@ -12,7 +18,9 @@ function Result() {
 
   useEffect(() => {
     async function getResultFromServer(): Promise<void> {
-      await fetch(`${FETCH_URL}/result`, {
+      const URL = isDevMode() ? `${FETCH_URL}/result` : `${RELEASE_URL}/result`;
+
+      await fetch(URL, {
         method: FETCH_METHOD.GET,
         headers: {
           'Content-type': 'application/json',
