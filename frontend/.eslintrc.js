@@ -19,5 +19,13 @@ module.exports = {
       jsx: true,
     },
   },
-  rules: {},
+  rules: {
+    'linebreak-style': ['warn', 'windows'],
+    quotes: ['error', 'single', { avoidEscape: true }],
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
 };

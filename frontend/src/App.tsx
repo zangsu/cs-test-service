@@ -1,24 +1,26 @@
 import React from 'react';
+import Home from './main/Home';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.scss';
+import WorkBook from './WorkBook/WorkBook';
+import Result from './Result/Result';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Home></Home>,
+    },
+    {
+      path: '/workBook',
+      element: <WorkBook></WorkBook>,
+    },
+    {
+      path: '/result',
+      element: <Result></Result>,
+    },
+  ]);
 
+  return <RouterProvider router={router}></RouterProvider>;
+}
 export default App;
