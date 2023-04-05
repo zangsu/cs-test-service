@@ -14,7 +14,6 @@ const parseSchoolID = (IDString: string) => {
 
 const isDevMode = () => {
   const LOCAL_HOST = 'localhost';
-  console.log(window.location.hostname === LOCAL_HOST);
   return window.location.hostname === LOCAL_HOST;
 };
 
