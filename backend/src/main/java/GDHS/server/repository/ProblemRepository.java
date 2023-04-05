@@ -44,7 +44,7 @@ public class ProblemRepository {
 				"1번 보기",
 				"2번 보기",
 				"3번 보기",
-				"4번 보기",
+				"정답 - 4번 보기",
 				"5번 보기"};
 		int correction4 = 4;
 
@@ -54,7 +54,7 @@ public class ProblemRepository {
 				"2번 보기",
 				"3번 보기",
 				"4번 보기",
-				"5번 보기"};
+				"정답 - 5번 보기"};
 		int correction5 = 5;
 
 		problemMap.put(1, new Problem(problem1, example1, correction1));
