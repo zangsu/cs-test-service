@@ -1,5 +1,5 @@
 import React from 'react';
-import Home from './Main/Home';
+import Home from './main/Home';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.scss';
 import WorkBook from './WorkBook/WorkBook';
