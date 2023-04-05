@@ -12,4 +12,9 @@ const parseSchoolID = (IDString: string) => {
   return `20${IDNumber}`;
 };
 
-export { _$, changeCSS, parseSchoolID };
+const isDevMode = () => {
+  const LOCAL_HOST = 'localhost';
+  return window.location.hostname === LOCAL_HOST;
+};
+
+export { _$, changeCSS, parseSchoolID, isDevMode };

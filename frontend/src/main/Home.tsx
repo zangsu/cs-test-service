@@ -3,10 +3,10 @@ import './home.scss';
 import React, { useEffect } from 'react';
 import Logo from './Logo';
 import Characters from './Charaters';
-import { changeCSS, parseSchoolID, _$ } from '../common/utils';
+import { changeCSS, isDevMode, parseSchoolID, _$ } from '../common/utils';
 import { useNavigate } from 'react-router-dom';
 import handImg from '../assets/img/longhand.png';
-import { FETCH_METHOD, FETCH_URL } from '../common/variable';
+import { FETCH_METHOD, FETCH_URL, RELEASE_URL } from '../common/variable';
 
 function Home() {
   const navigate = useNavigate();
@@ -65,7 +65,11 @@ function Home() {
     const userName = $userNameInput.value;
     const userID = parseSchoolID($userIDInput.value);
 
-    await fetch(`${FETCH_URL}/user?userName=${userName}&userID=${userID}`, {
+    const URL = isDevMode()
+      ? `${FETCH_URL}/user?userName=${userName}&userID=${userID}`
+      : `${RELEASE_URL}/user?userName=${userName}&userID=${userID}`;
+
+    await fetch(URL, {
       method: FETCH_METHOD.POST,
     });
   }
