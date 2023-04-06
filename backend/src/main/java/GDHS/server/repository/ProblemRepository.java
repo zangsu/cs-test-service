@@ -39,22 +39,23 @@ public class ProblemRepository {
 		};
 		int correction3 = 4;
 
-		String problem4 = "4번문제";
+		String problem4 = "다음 중 -47의 2의 보수 표현법으로 옳은 것은?";
 		String[] example4 = {
-				"1번 보기",
-				"2번 보기",
-				"3번 보기",
-				"정답 - 4번 보기",
-				"5번 보기"};
+				"0011 1100",
+				"1101 0000",
+				"1101 0001",
+				"0010 1111",
+				"0001 1101"};
 		int correction4 = 4;
 
-		String problem5 = "5번문제";
+		String problem5 = "다음 C 언어 변수 중 `데이터 영역`에 저장되는 변수는 무엇인가?";
 		String[] example5 = {
-				"1번 보기",
-				"2번 보기",
-				"3번 보기",
-				"4번 보기",
-				"정답 - 5번 보기"};
+				"main 함수 안에서 선언된 int age",
+				"사용자 정의 함수 func1 안에서 선언 된 char alpha",
+				"main 함수 안에서 동적으로 할당 된 int* array",
+				"사용자 정의 함수 func3의 구현 코드",
+				"사용자 정의 함수 func2 안에서 선언 된 static int sum",
+				};
 		int correction5 = 5;
 
 		problemMap.put(1, new Problem(problem1, example1, correction1));
