@@ -1,6 +1,7 @@
 # <a href="https://cs-test-service.vercel.app/" target="_blank">cs-test-service</a>
 ## 서비스 설명
 **간단한 CS 문제를 풀어볼 수 있는 서비스입니다.**
+- 프로젝트 기간 : 3/8 ~ 4/8
 
 https://user-images.githubusercontent.com/74173976/230528539-4df619a2-6d3e-417f-a1d3-4388d6087752.mp4
 
