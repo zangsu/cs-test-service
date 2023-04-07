@@ -29,7 +29,8 @@ public class CorsFilter implements Filter {
 		Filter.super.init(filterConfig);
 
 		alloweOrigin.add("http://localhost:3000");
-		alloweOrigin.add("https://cs-test-service-afno7k1gh-moon-gd.vercel.app");
+		//alloweOrigin.add("https://cs-test-service-afno7k1gh-moon-gd.vercel.app");
+		alloweOrigin.add("https://cs-test-service.vercel.app");
 
 	}
 
@@ -44,6 +45,7 @@ public class CorsFilter implements Filter {
 
 
 		String origin = request.getHeader(HttpConst.ORIGIN);
+		log.info("request from {}", origin);
 
 		if(alloweOrigin.contains(origin) == false)
 			return;
