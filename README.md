@@ -1,4 +1,4 @@
-# <a href="https://cs-test-service.vercel.app/">cs-test-service</a>
+# <a href="https://cs-test-service.vercel.app/" target="_blank">cs-test-service</a>
 ## 서비스 설명
 **간단한 CS 문제를 풀어볼 수 있는 서비스입니다.**
 
