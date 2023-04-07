@@ -2,6 +2,8 @@
 ## 서비스 설명
 **간단한 CS 문제를 풀어볼 수 있는 서비스입니다.**
 
+https://user-images.githubusercontent.com/74173976/230528539-4df619a2-6d3e-417f-a1d3-4388d6087752.mp4
+
 <br>
 
 ## 계기
@@ -25,8 +27,18 @@
 <br>
 
 ## 화면구성
-추후 기입
-  
+#### 메인 화면
+
+https://user-images.githubusercontent.com/74173976/230530341-e6c6ee5f-c68b-4b8c-8a92-d1ea76613e00.mp4
+
+#### 문제 화면
+
+https://user-images.githubusercontent.com/74173976/230530363-a6f94f14-053d-441f-aa4a-71b2d5a057cd.mp4
+
+#### 결과 화면
+
+<img width="1211" alt="결과" src="https://user-images.githubusercontent.com/74173976/230530386-ae13395c-877d-45f5-8120-57d9130bfdb7.png">
+
 <br>
 
 ## 기술 스택
