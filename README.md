@@ -51,7 +51,7 @@ https://user-images.githubusercontent.com/74173976/230530363-a6f94f14-053d-441f-
 <br>
 
 ## 아키텍쳐
-추후 기입
+![cs-test-service_architecture drawio (1)](https://user-images.githubusercontent.com/76612738/230532261-f639efe6-9c1a-4360-8ef9-099c732285f9.png)
 
 <br>
 
